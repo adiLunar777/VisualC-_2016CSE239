@@ -24,3 +24,4 @@ C:\Users\dell\Source\Repos\VisualC-_2016CSE239\WindowsFormsApp6\WindowsFormsApp6
 C:\Users\dell\Source\Repos\VisualC-_2016CSE239\WindowsFormsApp6\WindowsFormsApp6\obj\Debug\WindowsFormsApp6.csproj.CoreCompileInputs.cache
 C:\Users\dell\Source\Repos\VisualC-_2016CSE239\WindowsFormsApp6\WindowsFormsApp6\obj\Debug\WindowsFormsApp6.exe
 C:\Users\dell\Source\Repos\VisualC-_2016CSE239\WindowsFormsApp6\WindowsFormsApp6\obj\Debug\WindowsFormsApp6.pdb
+C:\Users\dell\source\repos\VisualC-_2016CSE239\WindowsFormsApp6\WindowsFormsApp6\obj\Debug\WindowsFormsApp6.Form3.resources

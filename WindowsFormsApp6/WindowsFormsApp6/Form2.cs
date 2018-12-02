@@ -15,10 +15,10 @@ namespace WindowsFormsApp6
    
     public partial class Form2 : Form
     {
-        
+        byte[] l;
         SqlDataAdapter dataAdapter;
         BindingSource bs = new BindingSource();
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\dell\source\repos\VisualC-_2016CSE239\WindowsFormsApp6\WindowsFormsApp6\Database1.mdf;Integrated Security=True");
 
         public Form2()
         {
@@ -72,38 +72,19 @@ namespace WindowsFormsApp6
 
         }
 
-        private void btn_imgsave_Click(object sender, EventArgs e)
-        {
-            con.Open();
-            SqlCommand cmd=con.CreateCommand();
-            Byte[] img = File.ReadAllBytes(openFileDialog1.FileName);
-            SqlParameter para = new SqlParameter("@pic", SqlDbType.VarBinary, img.Length, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, img);
-            cmd.Parameters.Add(para);
-            /*cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Insert into Register1 values('" + tb_id.Text + "','" + tb_name.Text + "','" + tb_sec.Text + "','" + tb_branch.Text + "',@pic)";
-            try
-            {
-
-                cmd.ExecuteNonQuery();
-
-            }catch (Exception e1)
-            {
-
-                MessageBox.Show("Check for Valid inputs");
-
-            }*/
-            con.Close();
-            /*MessageBox.Show("");*/
-        }
+      
 
         private void btn_reg_Click(object sender, EventArgs e)
         {
             con.Open();
             SqlCommand cmd1 = con.CreateCommand();
             
+           
             cmd1.CommandType = CommandType.Text;
-            cmd1.CommandType = CommandType.Text;
-            cmd1.CommandText = "Insert into Register1 values('" + tb_id.Text + "','" + tb_name.Text + "','" + tb_sec.Text + "','" + tb_branch.Text + "',@pic,'"+tb_dob.Text+"')";
+            byte[] mypic = File.ReadAllBytes(openFileDialog1.FileName);
+            cmd1.CommandText = "insert into Register1 values('" + tb_id.Text + "','" + tb_name.Text + "','" + tb_sec.Text + "','" + tb_branch.Text + "',@pic,'"+tb_dob.Text+"')";
+            SqlParameter sq = new SqlParameter("@pic", SqlDbType.VarBinary, mypic.Length, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, mypic);
+            cmd1.Parameters.Add(sq);
             cmd1.ExecuteNonQuery();
 
            
@@ -116,12 +97,33 @@ namespace WindowsFormsApp6
             con.Close();
             MessageBox.Show("Registered Succesfully");
             clr();
+            load();
         }
 
         private void button_refresh_Click(object sender, EventArgs e)
         {
             clr();
             load();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter("Select Profile from Register1 where Id='" + tb_id.Text + "'", con);
+            DataTable d = new DataTable();
+            da.Fill(d);
+            Byte[] p = new byte[0];
+            p = (byte[])d.Rows[0][0];
+
+            MemoryStream ms = new MemoryStream(p);
+            pictureBox1.Image = Image.FromStream(ms);
+
+            con.Close();
         }
     }
 }
